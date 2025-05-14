@@ -1,0 +1,152 @@
+# English translations for Kontainer package.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the Kontainer package.
+# Denys Madureira <denysmb@zoho.com>, 2025.
+#
+# SPDX-FileCopyrightText: 2025 Flori G <Renner03@protonmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kontainer\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-12 21:26+0100\n"
+"PO-Revision-Date: 2025-05-14 11:36+0200\n"
+"Last-Translator: Flori G <Renner03@protonmail.com>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.1\n"
+
+#: src/qml/FilePickerDialog.qml:6
+msgid "Choose package file"
+msgstr "Paketdatei auswählen"
+
+#: src/qml/DistroboxCreateDialog.qml:9
+msgid "Create new container"
+msgstr "Neuen Container erstellen"
+
+#: src/qml/DistroboxCreateDialog.qml:64
+msgid "Name and Image fields are required"
+msgstr "Die Felder für Name und Image sind erforderlich"
+
+#: src/qml/DistroboxCreateDialog.qml:83
+msgid "Name"
+msgstr "Name"
+
+#: src/qml/DistroboxCreateDialog.qml:84
+msgid "Fedora"
+msgstr "Fedora"
+
+#: src/qml/DistroboxCreateDialog.qml:90
+msgid "Image"
+msgstr "Image"
+
+#: src/qml/DistroboxCreateDialog.qml:124
+msgid "Arguments"
+msgstr "Parameter"
+
+#: src/qml/DistroboxCreateDialog.qml:125
+msgid "--home=/path/to/home (optional)"
+msgstr "--home=/pfad/zu/home (optional)"
+
+#: src/qml/DistroboxCreateDialog.qml:141
+msgid "Command preview"
+msgstr "Befehlsvorschau"
+
+#: src/qml/DistroboxCreateDialog.qml:173
+msgid "Creating container..."
+msgstr "Container wird erstellt …"
+
+#: src/qml/DistroboxRemoveDialog.qml:8 src/qml/Main.qml:166
+msgid "Remove container"
+msgstr "Container entfernen"
+
+#: src/qml/DistroboxRemoveDialog.qml:22
+msgid "Failed to remove container"
+msgstr "Das Entfernen des Containers ist fehlgeschlagen"
+
+#: src/qml/DistroboxRemoveDialog.qml:33
+msgid "Are you sure you want to remove this container?"
+msgstr "Sind Sie sicher, dass Sie diesen Container entfernen möchten?"
+
+#: src/qml/DistroboxRemoveDialog.qml:39
+msgid "Container: %1"
+msgstr "Container: %1"
+
+#: src/qml/DistroboxRemoveDialog.qml:45
+msgid "This action cannot be undone"
+msgstr "Diese Aktion kann nicht rückgängig gemacht werden"
+
+#: src/qml/DistroboxShortcutDialog.qml:8
+msgid "Create distrobox shortcuts"
+msgstr "Distrobox-Verknüpfungen erstellen"
+
+#: src/qml/DistroboxShortcutDialog.qml:28
+msgid "Create shortcuts for all containers"
+msgstr "Verknüpfungen für alle Container erstellen"
+
+#: src/qml/DistroboxShortcutDialog.qml:34
+msgid "Or select a specific container"
+msgstr "Oder wählen Sie einen bestimmten Container aus"
+
+#: src/qml/ErrorDialog.qml:8
+msgid "Error"
+msgstr "Fehler"
+
+#: src/qml/ErrorDialog.qml:12
+msgid ""
+"Failed to create container.\n"
+"Please check your inputs and try again."
+msgstr ""
+"Das Erstellen des Containers ist fehlgeschlagen.\n"
+"Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut."
+
+#: src/qml/Main.qml:20
+msgid "Kontainer"
+msgstr "Kontainer"
+
+#: src/qml/Main.qml:27
+msgid "Create container"
+msgstr "Container erstellen"
+
+#: src/qml/Main.qml:32
+msgid "Create distrobox shortcut"
+msgstr "Distrobox-Verknüpfung erstellen"
+
+#: src/qml/Main.qml:41
+msgid "Distrobox documentation"
+msgstr "Distrobox-Dokumentation"
+
+#: src/qml/Main.qml:46
+msgid "Distrobox useful tips"
+msgstr "Nützliche Distrobox-Tipps"
+
+#: src/qml/Main.qml:85
+msgid "Create"
+msgstr "Erstellen"
+
+#: src/qml/Main.qml:90
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: src/qml/Main.qml:112
+msgid "Distrobox containers"
+msgstr "Distrobox-Container"
+
+#: src/qml/Main.qml:181
+msgid "Upgrade container"
+msgstr "Container aktualisieren"
+
+#: src/qml/Main.qml:195
+msgid "Install package file"
+msgstr "Paketdatei installieren"
+
+#: src/qml/Main.qml:211
+msgid "Open terminal"
+msgstr "Terminal öffnen"
+
+#: src/qml/Main.qml:228
+msgid "No containers found"
+msgstr "Keine Container gefunden"
