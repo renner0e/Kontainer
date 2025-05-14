@@ -7,6 +7,14 @@ A simple Kirigami GUI for Distrobox
 
 <a href='https://flathub.org/apps/io.github.DenysMb.Kontainer'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
+### Build instructions
+This can be built and installed with the following commands:
+```
+mkdir -p build && cd build
+cmake .. -G "Kate - Ninja" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+sudo ninja-build -C . install
+```
+
 ### Requirements:
 Those are required even for Flatpak version:
 - Distrobox
