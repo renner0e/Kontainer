@@ -1,47 +1,43 @@
-find_program(GETTEXT_MSGFMT_EXECUTABLE msgfmt)
+# Make a function to process & install the internationalised .desktop files in the base dir
+function(install_internationalized_desktop_file FILE DESTINATION)
+    get_filename_component(fileName ${FILE} NAME)
 
-if(NOT GETTEXT_MSGFMT_EXECUTABLE)
-        message(
-"------
-                 NOTE: msgfmt not found. Translations will *not* be installed
-------")
-else(NOT GETTEXT_MSGFMT_EXECUTABLE)
+    # Output file path (kept CMAKE_BINARY_DIR as per your original, adjust if needed)
+    # For outputs generated from a specific CMakeLists.txt, CMAKE_CURRENT_BINARY_DIR is often preferred.
+    set(outputFile ${CMAKE_BINARY_DIR}/${fileName})
 
-        set(catalogname ${CMAKE_PROJECT_NAME})
+    # Determine the unambiguous, full path to the source template FILE.
+    # This is crucial for the --template argument in the COMMAND.
+    if(IS_ABSOLUTE ${FILE})
+        set(abs_template_path ${FILE})
+    else()
+        # Resolve FILE relative to the current source directory
+        set(abs_template_path ${CMAKE_CURRENT_SOURCE_DIR}/${FILE})
+    endif()
 
-        # Beautiful hackery
-        # Process .desktop files
-        file(GLOB_RECURSE DESKTOP_FILES ${CMAKE_SOURCE_DIR}/*.desktop)
-        set(PROCESSED_DESKTOP_FILES)
+    # Safety check: if, after resolution, the input template path is identical
+    # to the output path, it's a guaranteed cycle (common in in-source builds).
+    if("${abs_template_path}" STREQUAL "${outputFile}")
+        message(FATAL_ERROR "Input template file '${abs_template_path}' and output file '${outputFile}' are the same path. This will cause a dependency cycle. Please ensure you are using an out-of-source build and the input FILE points to a source template, not the build output location.")
+    endif()
 
-        file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/desktopfiles/)
+    add_custom_command(
+        OUTPUT ${outputFile}
+        # Use the unambiguous abs_template_path for --template.
+        # The -d path for .po files is kept as CMAKE_BINARY_DIR from your original.
+        COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --desktop --template=${abs_template_path} -d ${CMAKE_BINARY_DIR}/po/desktopfiles -o ${outputFile}
+        # The custom command depends on the source template file.
+        # You should also add dependencies for the actual .po files if they can change.
+        DEPENDS ${abs_template_path}
+        # VERBATIM is good practice for custom commands to ensure arguments are passed exactly.
+        VERBATIM
+        # Adding a comment helps in build logs.
+        COMMENT "Generating internationalized ${fileName} from ${abs_template_path}"
+    )
 
-        # Move all .pot files into the temporary directory and rename them
-        # also add to LINGUAS file for msgfmt to accept them
-        set(LINGUAS_CONTENT "")
-        file(GLOB PO_FILE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/*/)
-        foreach(_poFileDir ${PO_FILE_DIRS})
-                if(EXISTS ${_poFileDir}/${catalogname}.po)
-                        get_filename_component(_poFileDirName ${_poFileDir} NAME)
-                        set(_renamedPoFile ${CMAKE_CURRENT_BINARY_DIR}/desktopfiles/${_poFileDirName}.po)
-                        file(COPY ${_poFileDirName}/${catalogname}.po DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/desktopfiles/)
-                        file(RENAME ${CMAKE_CURRENT_BINARY_DIR}/desktopfiles/${catalogname}.po ${_renamedPoFile})
-                        set(LINGUAS_CONTENT "${LINGUAS_CONTENT}${_poFileDirName}\n")
-                endif()
-        endforeach(_poFileDir ${PO_FILE_DIRS})
-        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/desktopfiles/LINGUAS "${LINGUAS_CONTENT}")
+    # Create a unique name for the custom target to avoid redefinition if the function is called multiple times.
+    # The ALL keyword makes this target part of the default build (i.e., 'ninja' or 'make' will build it).
+    add_custom_target(process_desktop_file_${fileName} ALL DEPENDS ${outputFile})
 
-        # Make a function to process & install the internationalised .desktop files in the base dir
-        function(install_internationalized_desktop_file FILE DESTINATION)
-                get_filename_component(fileName ${FILE} NAME)
-                set(outputFile ${CMAKE_BINARY_DIR}/${fileName})
-                add_custom_command(
-                                OUTPUT ${outputFile}
-                                COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --desktop --template=${FILE} -d ${CMAKE_BINARY_DIR}/po/desktopfiles -o ${outputFile}
-                                DEPENDS ${FILE}
-                )
-                add_custom_target(process_internationalized_desktop_files ALL DEPENDS ${outputFile})
-                install(PROGRAMS ${outputFile} DESTINATION ${DESTINATION})
-        endfunction()
-
-endif(NOT GETTEXT_MSGFMT_EXECUTABLE)
+    install(PROGRAMS ${outputFile} DESTINATION ${DESTINATION})
+endfunction()
